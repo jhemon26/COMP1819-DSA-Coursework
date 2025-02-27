@@ -45,15 +45,27 @@ class Extracts_prime_from_binary:
             self.decimal_values.add(decimal_value)           #adding the values to the decimal_vlaues list
         
         return sorted(self.decimal_values)
+
+
+
+    def is_prime(self, n):
+        if n < 2:
+            return False
+        for i in range(2, int(n**0.5) + 1):  # Check only up to √n
+            if n % i == 0:
+                return False
+        return True
+
     
     
+num = 10000110100111101001101010100000011000100111000001100010011100100100001010000010100010001010011
+
+apply_num_to_class = Extracts_prime_from_binary(num)
+apply_num_to_class.extracts_enique_binary_num()
+print_decimal_values = apply_num_to_class.make_decimal()
+
+print("\n") 
+print(print_decimal_values)  
     
-num = 10101
-classifier = Extracts_prime_from_binary(num)
-result = classifier.extracts_enique_binary_num()  # Extracts unique binary substrings
-for_decimal_values = classifier.make_decimal()
-print("\n")   
-print(result)
-print(for_decimal_values)    
             
 
