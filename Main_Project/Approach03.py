@@ -20,18 +20,18 @@ class ExtractsPrimeFromBinary:
                     if len(self.decimal_values) > 100000:  # Safety limit to avoid excessive computation
                         return
     
-    def is_prime(self, n):
-        """Optimized prime-checking function without memory-heavy lists."""
+    def is_prime(self,n):
         if n < 2:
             return False
-        if n in (2, 3):
+        if n == 2 or n == 3:
             return True
         if n % 2 == 0 or n % 3 == 0:
             return False
-        for i in range(5, min(int(n**0.5) + 1, 1000000), 6):  # Avoid excessive iteration
-            if n % i == 0 or n % (i + 2) == 0:
+        for i in range(5, int(n ** 0.5) + 1, 2):  # Check odd numbers only
+            if n % i == 0:
                 return False
         return True
+
 
     def extract_primes(self, limit=100):
         """Extracts up to 'limit' prime numbers from decimal values."""
@@ -60,7 +60,7 @@ binary_numbers_with_limits = [
     ("01000011010011110100110101010000", 999999),
     ("1111111111111111111111111111111111111111", 999999),
     ("01000011010011110100110101010000001100010011100000110001", 123456789012),
-    #("010000110100111101001101010100000011000100111000001100010011100100100001010000010100010001010011",12345678901234567890)
+    ("010000110100111101001101010100000011000100111000001100010011100100100001010000010100010001010011",12345678901234567890)
 ]
 # Process each binary string
 for binary_string, prime_limit in binary_numbers_with_limits:

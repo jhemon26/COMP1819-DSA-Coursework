@@ -20,6 +20,9 @@ class ExtractsPrimeFromBinary:    # Class to extract prime numbers from binary s
                     if len(self.decimal_values) > 100000:                  # Stop at < 100000 decimal values to reduce memory usage
                         return
     
+    # Method that useges Advanved Trial Division with 6k +/- 1 formula.
+    # Checks divisibility only by numbers of the form 6k ± 1 an upto √n
+    
     def is_prime(self, n):               # Function to check if number is prime or not
         if n < 2:                        # If number is less than 2 then it is not prime
             return False             
@@ -27,7 +30,7 @@ class ExtractsPrimeFromBinary:    # Class to extract prime numbers from binary s
             return True
         if n % 2 == 0 or n % 3 == 0:     # If number is divisible by 2 or 3 then it is not prime
             return False
-        for i in range(5, min(int(n**0.5) + 1, 1000000), 6):  # using 6k +/- 1 formula to check prime numbers (Sieve of Eratosthenes algo)
+        for i in range(5, min(int(n**0.5) + 1, 1000000), 6):  # using 6k +/- 1 formula to check prime numbers (Advanced Trial Division)
             if n % i == 0 or n % (i + 2) == 0:                # If number is divisible by i or i+2 then it is not prime
                 return False
         return True                                           # If number is not divisible by any number then it is prime
@@ -54,22 +57,21 @@ class ExtractsPrimeFromBinary:    # Class to extract prime numbers from binary s
         else:                                                       # else, print first 3 and last 3 prime numbers
             print(f"Prime Numbers: {primes[:3]} ... {primes[-3:]}") 
 
-# Define binary numbers and their prime extraction limits
+# Binary numbers with their specified prime extraction limit
 binary_numbers_with_limits = [
-    #("0100001101001111",999999 ),
-    #("01000011010011110100110101010000", 999999),
-    #("1111111111111111111111111111111111111111", 999999),
+    ("0100001101001111",999999 ),
+    ("01000011010011110100110101010000", 999999),
+    ("1111111111111111111111111111111111111111", 999999),
     ("01000011010011110100110101010000001100010011100000110001", 123456789012),
-    ("010000110100111101001101010100000011000100111000001100010011100100100001010000010100010001010011",12345678901234567890),
-    ("0100001101001111010011010101000000110001001110000011000100111001001000010100000101000100",1234567890123456789 )
+    ("010000110100111101001101010100000011000100111000001100010011100100100001010000010100010001010011",12345678901234567890)
 ] 
 # Process each binary string
-for binary_string, prime_limit in binary_numbers_with_limits:
-    processor = ExtractsPrimeFromBinary(binary_string)
-    start_time = time.time()
+for binary_string, prime_limit in binary_numbers_with_limits:    # Loop through each binary string and process them
+    processor = ExtractsPrimeFromBinary(binary_string)           # Create an instance of the ExtractsPrimeFromBinary class
+    start_time = time.time() # Start execution time tracking
     
-    processor.extracts_unique_decimal_num()
-    prime_numbers = processor.extract_primes(limit=prime_limit)
-    execution_time = time.time() - start_time
+    processor.extracts_unique_decimal_num()                      # Extract unique decimal numbers
+    prime_numbers = processor.extract_primes(limit=prime_limit)  # Extract prime numbers with a given limit
+    execution_time = time.time() - start_time  # End execution time tracking
     
-    processor.print_prime_results(prime_numbers, prime_limit, execution_time)
+    processor.print_prime_results(prime_numbers, prime_limit, execution_time)  # Print results with execution time
